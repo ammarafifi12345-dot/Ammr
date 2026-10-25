@@ -1,36 +1,30 @@
-name: Build Flutter APK
+name: بناء فلاتر
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "عمرو" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Set up Flutter
+      - name: تثبيت فلاتر
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x'
+          flutter-version: '3.16.0'
           channel: 'stable'
 
-      - name: Install dependencies
+      - name: تبعيات المشروع
         run: flutter pub get
 
-      - name: Build APK
+      - name: بناء ملف APK
         run: flutter build apk --release
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
+      - name: رفع ملف APK
+        uses: actions/upload-artifact@v3
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
