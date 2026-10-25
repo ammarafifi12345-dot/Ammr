@@ -6,24 +6,31 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: تثبيت فلاتر
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.0'
           channel: 'stable'
 
-      - name: تبعيات المشروع
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: بناء ملف APK
+      - name: Build APK
         run: flutter build apk --release
 
-      - name: رفع ملف APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
