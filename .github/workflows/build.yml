@@ -2,14 +2,14 @@ name: بناء فلاتر
 
 on:
   push:
-    branches: [ "main", "master", "عمرو" ]
+    branches: [ "main", "master", "عمرو", "رئيسي" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: تثبيت فلاتر
         uses: subosito/flutter-action@v2
@@ -24,7 +24,7 @@ jobs:
         run: flutter build apk --release
 
       - name: رفع ملف APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
